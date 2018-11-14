@@ -44,7 +44,7 @@ h2.vanquished {
 
 h2.escaped {
     color: red;
-    /* animation-name: flashIn; */
+    /* animation-name: flashIn;   */
     animation-duration: 2s;
     /* width: 100%; */
 }

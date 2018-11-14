@@ -21,7 +21,9 @@ var getRandomGhost = function() {
 }
 
 function removeText(textToRemove) {
+  //this checks to see if there is a text node to remove
   while(textToRemove.parentNode) {
+    //this then removes the element if it does exist
     textParent = textToRemove.parentElement
     //THE NEWLY CREATED H2 ELEMENT IS REMOVED FROM THE DOCUMENT
     textParent.removeChild(textToRemove);
@@ -30,7 +32,7 @@ function removeText(textToRemove) {
 
 
 
-//the function below applies an event that makes the ghost "appear" when moused over for all img elements, including newly appended image elements
+//the function below applies an event that makes the hidden ghost "appear" when moused over for all img elements, including newly appended image elements
 document.querySelector('.dad').addEventListener('mouseover', function(event) {
   if (event.target.tagName.toLowerCase() === 'img') {
     images = event.target
@@ -38,6 +40,17 @@ document.querySelector('.dad').addEventListener('mouseover', function(event) {
     images.style.transition = "3s";
   }
 });
+
+//this is the same as the above function  but I'm trying to adapt to make it only apply to these new special hidden ghosts I want to include
+document.querySelector('.dad').addEventListener('mouseover', function(event) {
+  if (event.target.classList.includes("hidden")) {
+    images = event.target
+    images.style.opacity = "1";
+    images.style.transition = "3s";
+  }
+});
+
+
 
 //the function below applies an event that makes the ghost "disappear" when moused off for all img elements, including newly appended image elements
 document.querySelector('.dad').addEventListener('mouseout', function(event) {
@@ -76,9 +89,9 @@ document.querySelector('.dad').addEventListener('click', function(event) {
         }
 });
 
+var randomInterValUpto2Sec = Math.floor(Math.random()*2000)
 
-      // 3 SECONDS AFTER THE CLICK (AND 1 SECOND AFTER THE H2 ELEMENT IS REMOVED), THIS HAPPENS:
-setInterval(makeaNewGhost, Math.floor(Math.random()*2000))
+setInterval(makeaNewGhost, randomInterValUpto2Sec)
 function  makeaNewGhost() {
     //A NEW IMAGE ELEMENT IS CREATED
     aNewGhost = document.createElement('img');
@@ -91,8 +104,8 @@ function  makeaNewGhost() {
     arrayOfBoxes = document.querySelectorAll('.boxes')
     randomboxDad = arrayOfBoxes[Math.floor(Math.random()*(arrayOfBoxes.length))]
 
-    //THIS NEWLY CREATED ELEMENT IS PLACED ON THE PAGE INSIDE THE PARENT.
-    //mKE SURE THE RANDOMLY CHOSEN DIV IS EMPTY
+
+    //THIS WHILE LOOP MAKES SURE THE RANDOMLY CHOSEN DIV IS EMPTY FIRST, THEN APPENDS A NEW IMAGE
     while(randomboxDad.childNodes[0]) {
       randomboxDad.removeChild(randomboxDad.childNodes[0])
     }
