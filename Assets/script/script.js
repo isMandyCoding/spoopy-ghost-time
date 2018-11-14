@@ -10,6 +10,7 @@ var randomboxDad
 var newlyCreatedText
 var textParent
 var aNewGhost
+var newWarnText
 
 var ghostsVanquished = 0;
 
@@ -42,13 +43,13 @@ document.querySelector('.dad').addEventListener('mouseover', function(event) {
 });
 
 //this is the same as the above function  but I'm trying to adapt to make it only apply to these new special hidden ghosts I want to include
-document.querySelector('.dad').addEventListener('mouseover', function(event) {
-  if (event.target.classList.includes("hidden")) {
-    images = event.target
-    images.style.opacity = "1";
-    images.style.transition = "3s";
-  }
-});
+// document.querySelector('.dad').addEventListener('mouseover', function(event) {
+//   if (event.target.classList.includes("hidden")) {
+//     images = event.target
+//     images.style.opacity = "1";
+//     images.style.transition = "3s";
+//   }
+// });
 
 
 
@@ -67,7 +68,7 @@ document.querySelector('.dad').addEventListener('click', function(event) {
     ghostsVanquished ++
     document.querySelector(".btn-info").textContent = `Ghosts Vanquished: ${ghostsVanquished}`
     images = event.target
-    //VAR IDENTIFIES PARENT OF IMAGE ELEMENT (IT'S BOX)
+    //VAR IDENTIFIES PARENT OF IMAGE ELEMENT (ITS BOX)
     parent = images.parentElement
     //CREATES NEW H2 ELEMENT IN A VARIABLE
     newText = document.createElement('h2');
@@ -76,10 +77,8 @@ document.querySelector('.dad').addEventListener('click', function(event) {
     // MAKES THE H2 CLASSNAME 'VANQUISHED'
     newText.className = "vanquished text-center";
 
-
     //ACTUALLY PLACES THIS NEW TEXT INSIDE THE PARENT ELEMENT (BOXES)
     parent.appendChild(newText);
-
 
     //REMOVES THE IMAGE ELEMENT FROM THE DOCUMENT
     parent.removeChild(images);
@@ -89,10 +88,18 @@ document.querySelector('.dad').addEventListener('click', function(event) {
         }
 });
 
-var randomInterValUpto2Sec = Math.floor(Math.random()*2000)
 
-setInterval(makeaNewGhost, randomInterValUpto2Sec)
+function calcrandomInterValUpto2Sec() {
+  var randomInterValUpto2Sec = Math.floor(Math.random()*2000)
+  return randomInterValUpto2Sec
+  console.log(randomInterValUpto2Sec)
+}
+// var randomInterValUpto2Sec =
+
+
+setInterval(makeaNewGhost, calcrandomInterValUpto2Sec())
 function  makeaNewGhost() {
+    calcrandomInterValUpto2Sec()
     //A NEW IMAGE ELEMENT IS CREATED
     aNewGhost = document.createElement('img');
     //THE SOURCE IS A LOCALLY STORED IMAGE WHOSE FILE PATH IS SELECTED RANDOMLY
@@ -119,7 +126,7 @@ function  makeaNewGhost() {
 var escapedGhostCounter = 0;
 function aGhostEscapes(fourSecondOldGhost) {
   if(fourSecondOldGhost.parentNode) {
-    var newWarnText = document.createElement('h2');
+    newWarnText = document.createElement('h2');
     //MAKES THE H2 TEXT NODE READ THE FOLLOWING
     newWarnText.textContent = "A ghost escaped!!";
     // MAKES THE H2 CLASSNAME 'VANQUISHED'
@@ -129,14 +136,13 @@ function aGhostEscapes(fourSecondOldGhost) {
 
 
     fourSecondOldGhost.parentElement.removeChild(fourSecondOldGhost)
-    setTimeout(removeText, 2000, newWarnText)
+    setTimeout(removeText, 1000, newWarnText)
 
     escapedGhostCounter ++
     document.querySelector(".btn-danger").textContent = `Ghosts Escaped: ${escapedGhostCounter}`
 
-    // makeaNewGhost()
-    console.log(escapedGhostCounter + " ghost(s) escaped")
-  }  // makeaNewGhost()
+    // console.log(escapedGhostCounter + " ghost(s) escaped")s
+  }
 }
 
 
